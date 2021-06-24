@@ -12,4 +12,9 @@ class Authentication
     {
         return $user->createToken(Constant::TOKEN_NAME);
     }
+
+    public function revokeToken(User $user)
+    {
+        $user->currentAccessToken()->delete();
+    }
 }
