@@ -17,6 +17,7 @@ class CreateCitiesTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('order');
+            $table->decimal('cost');
             $table->timestamps();
         });
     }

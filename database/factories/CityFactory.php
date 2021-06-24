@@ -22,7 +22,9 @@ class CityFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name,
+            'order' => $this->faker->unique()->numberBetween(1, 100),
+            'cost' => $this->faker->numberBetween(20, 50)
         ];
     }
 }
