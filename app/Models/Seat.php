@@ -10,4 +10,9 @@ class Seat extends Model
     use HasFactory;
 
     protected $fillable = ['trip_id', 'unique_id'];
+
+    public function cities(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(City::class);
+    }
 }
