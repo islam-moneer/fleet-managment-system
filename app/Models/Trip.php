@@ -15,4 +15,14 @@ class Trip extends Model
     {
         return $this->hasMany(Seat::class);
     }
+
+    public function cityFrom(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(City::class, 'from');
+    }
+
+    public function cityTo(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(City::class, 'to');
+    }
 }
