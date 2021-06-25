@@ -15,4 +15,10 @@ class Seat extends Model
     {
         return $this->belongsToMany(City::class);
     }
+
+    public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class)->withPivot('from', 'to', 'cost', 'from_order', 'to_order')
+            ->withTimestamps();
+    }
 }

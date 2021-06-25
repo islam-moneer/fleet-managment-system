@@ -11,8 +11,7 @@ if (!function_exists('createTripWithSeats',)) {
             'from' => $from,
             'to' => $to
         ]);
-        $seats = $trip->seats;
-        return [$trip, $seats];
+        return [$trip, $trip->seats()];
     }
 }
 

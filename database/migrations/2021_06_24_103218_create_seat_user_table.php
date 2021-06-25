@@ -20,6 +20,8 @@ class CreateSeatUserTable extends Migration
             $table->unsignedBigInteger('from');
             $table->unsignedBigInteger('to');
             $table->decimal('cost');
+            $table->integer('from_order');
+            $table->integer('to_order');
             $table->timestamps();
 
             $table->foreign('seat_id')

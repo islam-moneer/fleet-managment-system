@@ -25,4 +25,5 @@ Route::group(['namespace' => 'Api', 'middleware' => ['auth:sanctum']], function 
     Route::post('logout', 'Auth\AuthenticationController@logout');
 
     Route::get('available-seats/{trip}/{from}/{to}', 'SeatController@available');
+    Route::post('book-seat', 'SeatController@book');
 });

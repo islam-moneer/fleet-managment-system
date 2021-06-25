@@ -2,30 +2,31 @@
 
 namespace Tests\Feature;
 
-use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Http\Response;
-use Illuminate\Support\Arr;
-use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
+use App\Models\User;
+use Laravel\Sanctum\Sanctum;
+use Illuminate\Http\Response;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class UserTest extends TestCase
 {
     use DatabaseTransactions;
 
+    protected $to;
+    protected $user;
     protected $trip;
+    protected $from;
     protected $seats;
     protected $cities;
-    protected $from;
-    protected $to;
 
     protected function setUp(): void
     {
         parent::setUp();
+        $this->user = User::factory()->create();
         Sanctum::actingAs(
-            User::factory()->create()
+            $this->user
         );
         $this->createTripWithSeats();
     }
@@ -61,5 +62,25 @@ class UserTest extends TestCase
             ]);
     }
 
+    public function test_book_a_seat()
+    {
+        $seat = $this->seats->first();
+        $this->withHeaders([
+            'Accept' => 'application/json'
+        ])->post("/api/book-seat", [
+            "trip_id" => $this->trip->id,
+            "unique_id" => $seat->unique_id,
+            "from" => $this->from,
+            "to" => $this->to,
+        ])
+            ->assertCreated();
+
+        $this->assertDatabaseHas('seat_user', [
+            'seat_id' => $seat->id,
+            'user_id' => $this->user->id,
+            'from' => $this->from,
+            'to' => $this->to
+        ]);
+    }
 
 }

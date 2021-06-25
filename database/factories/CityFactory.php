@@ -23,7 +23,7 @@ class CityFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'order' => $this->faker->unique()->numberBetween(1, 100),
+            'order' => $this->faker->unique()->randomNumber(3),
             'cost' => $this->faker->numberBetween(20, 50)
         ];
     }
