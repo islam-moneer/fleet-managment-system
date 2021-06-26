@@ -24,6 +24,7 @@ Route::group(['namespace' => 'Api\Auth', 'middleware' => 'guest:sanctum'], funct
 Route::group(['namespace' => 'Api', 'middleware' => ['auth:sanctum']], function () {
     Route::post('logout', 'Auth\AuthenticationController@logout');
 
+    Route::get('cities', 'CityController@index');
     Route::get('trips', 'TripController@index');
     Route::get('available-seats/{trip}/{from}/{to}', 'SeatController@available');
     Route::post('book-seat', 'SeatController@book');
